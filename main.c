@@ -6,7 +6,11 @@ char* readFile(char* path);
 
 char* readFile(char* path) {
     FILE *f = fopen(path, "r");
+    if (f == NULL) {
+        return NULL;
+    }
     fseek(f, 0, SEEK_END);
+
     long fsize = ftell(f);
     fseek(f, 0, SEEK_SET);
     char *string = malloc(fsize + 1);
@@ -17,8 +21,13 @@ char* readFile(char* path) {
 }
 
 int main() {
+
     char* path = "/Users/acohen/.sinkerrc.json";
     char* s = readFile(path);
+    if (! s) {
+        fprintf(stderr, "Couldn't open config file\n");
+        exit(-1);
+    }
     printf("%s", s);
     free(s);
     return 0;
