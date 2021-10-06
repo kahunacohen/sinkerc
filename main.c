@@ -25,7 +25,7 @@ int main() {
     char* path = "/Users/acohen/.sinkerrc.json";
     char* s = readFile(path);
     if (! s) {
-        fprintf(stderr, "Couldn't open config file\n");
+        perror("Error opening sinker config file");
         exit(-1);
     }
     printf("%s", s);
