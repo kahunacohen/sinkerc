@@ -23,10 +23,11 @@ char* readFile(char* path) {
 
 char* getConfigFilePath() {
     char* envp = getenv("SINKER_CONFIG_FILE");
-
+    const char* CONFIG_FILE_NAME = ".sinkerrc.json";
     if (! envp) {
-
-        return snprintf("%s/.sinkerrc.json", getenv("HOME"));
+        char* path = getenv("HOME");
+        sprintf(path, "%s/%s", getenv("HOME"), CONFIG_FILE_NAME);
+        return path;
     }
     return envp;
     /* if (envp !=  NULL) { */
@@ -37,13 +38,13 @@ char* getConfigFilePath() {
 }
 int main() {
     printf("%s", getConfigFilePath());
-    char* path = "/Users/acohen/.sinkerrc.json";
-    char* s = readFile(path);
-    if (! s) {
-        perror("Error opening sinker config file");
-        exit(-1);
-    }
-    printf("%s", s);
-    free(s);
+    /* char* path = "/Users/acohen/.sinkerrc.json"; */
+    /* char* s = readFile(path); */
+    /* if (! s) { */
+    /*     perror("Error opening sinker config file"); */
+    /*     exit(-1); */
+    /* } */
+    /* printf("%s", s); */
+    /* free(s); */
     return 0;
 }
