@@ -29,12 +29,8 @@ char* getConfigFilePath() {
         sprintf(path, "%s/%s", getenv("HOME"), CONFIG_FILE_NAME);
         return path;
     }
+    sprintf(envp, "%s/%s", envp, CONFIG_FILE_NAME);
     return envp;
-    /* if (envp !=  NULL) { */
-    /*     printf("%s", envp); */
-    /*     printf("%lu", sizeof(envp)); */
-
-
 }
 int main() {
     printf("%s", getConfigFilePath());
