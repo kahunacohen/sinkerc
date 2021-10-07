@@ -21,8 +21,13 @@ char* readFile(char* path) {
     return string;
 }
 
+/**
+ * Gets the path to the config file. If the env var SINKER_CONFIG_DIR is
+ * set, returns that path + ".sinkerrc.json". Otherwise returns
+ * $HOME/.sinkerrc.json.
+ */
 char* getConfigFilePath() {
-    char* envp = getenv("SINKER_CONFIG_FILE");
+    char* envp = getenv("SINKER_CONFIG_PATH");
     const char* CONFIG_FILE_NAME = ".sinkerrc.json";
     if (! envp) {
         char* path = getenv("HOME");
@@ -33,14 +38,13 @@ char* getConfigFilePath() {
     return envp;
 }
 int main() {
-    printf("%s", getConfigFilePath());
-    /* char* path = "/Users/acohen/.sinkerrc.json"; */
-    /* char* s = readFile(path); */
-    /* if (! s) { */
-    /*     perror("Error opening sinker config file"); */
-    /*     exit(-1); */
-    /* } */
-    /* printf("%s", s); */
-    /* free(s); */
+    char* path = getConfigFilePath();
+    char* s = readFile(path);
+    if (! s) {
+        perror("Error opening sinker config file");
+        exit(-1);
+    }
+    printf("%s", s);
+    free(s);
     return 0;
 }
