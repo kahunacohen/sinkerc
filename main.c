@@ -3,6 +3,7 @@
 
 
 char* readFile(char* path);
+char* getConfigFilePath(void);
 
 char* readFile(char* path) {
     FILE *f = fopen(path, "r");
@@ -20,8 +21,22 @@ char* readFile(char* path) {
     return string;
 }
 
-int main() {
+char* getConfigFilePath() {
+    char* envp = getenv("SINKER_CONFIG_FILE");
 
+    if (! envp) {
+
+        return snprintf("%s/.sinkerrc.json", getenv("HOME"));
+    }
+    return envp;
+    /* if (envp !=  NULL) { */
+    /*     printf("%s", envp); */
+    /*     printf("%lu", sizeof(envp)); */
+
+
+}
+int main() {
+    printf("%s", getConfigFilePath());
     char* path = "/Users/acohen/.sinkerrc.json";
     char* s = readFile(path);
     if (! s) {
